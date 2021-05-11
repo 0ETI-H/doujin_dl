@@ -1,0 +1,8 @@
+dependencies:
+ts-node @types/node @types/express
+
+npx tsc --init
+
+npx tsc --project ./
+
+Can set build directory in outDir is tsconfig.json

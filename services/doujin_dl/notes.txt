@@ -6,3 +6,7 @@ npx tsc --init
 npx tsc --project ./
 
 Can set build directory in outDir is tsconfig.json
+
+dev environment like nodemon
+
+npx tsc --respawn ./src/index.ts

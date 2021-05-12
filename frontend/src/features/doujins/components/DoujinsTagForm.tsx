@@ -9,6 +9,7 @@ import {
   thunkDoujinsUrlData,
 } from "../doujins.slice";
 import DataTable from "../Test";
+import { DoujinsDownloadSuccess } from "./alerts/DoujinsDownloadSuccess";
 import { DoujinsTagIncludeForm } from "./DoujinsTagIncludeForm";
 import { DoujinUrlDataTable } from "./DoujinUrlDataTable";
 import { IncludeTag } from "./tags/IncludeTag";
@@ -59,6 +60,7 @@ export const DoujinsTagForm: React.FunctionComponent = () => {
 
       {/* TABLE OF DOUJIN URL INFO */}
       <Grid item xs={12}>
+        <DoujinsDownloadSuccess></DoujinsDownloadSuccess>
         <DoujinUrlDataTable></DoujinUrlDataTable>
         {/* <DataTable></DataTable> */}
       </Grid>

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppDispatch, RootState } from "../app/store";
+import { RootState } from "../app/store";
 
 export interface Doujin {
   title: string;
@@ -21,39 +21,17 @@ interface DoujinsState {
 
   searchTagsInclude: string[];
   searchTagsExclude: string[];
+
+  downloadSuccess: boolean;
 }
 
 const initialState: DoujinsState = {
   doujins: [],
   doujinFocused: { title: "", pageUrls: [] },
-  doujinsUrlData: [
-    // {
-    //   title:
-    //     "(Shuuki Reitaisai 6) [Gekidoku Shoujo (ke-ta)] Protagonist (Touhou Project)",
-    //   url: "https://nhentai.net/g/288576/",
-    // },
-    // {
-    //   title:
-    //     "(Reitaisai 16) [Gekidoku Shoujo (ke-ta)] GRAFFITI Vol. 4 (Touhou Project)",
-    //   url: "https://nhentai.net/g/272636/",
-    // },
-    // {
-    //   title: "(C84) [Gekidoku Shoujo (ke-ta)] ICE FLOWER (Touhou Project)",
-    //   url: "https://nhentai.net/g/98161/",
-    // },
-    // {
-    //   title:
-    //     "(C94) [Gekidoku Shoujo (ke-ta)] Crazy Four Seasons (Touhou Project)",
-    //   url: "https://nhentai.net/g/243578/",
-    // },
-    // {
-    //   title:
-    //     "(C81) [Gekidoku Shoujo (ke-ta, Hyuuga, Touma Nadare)] SLEEPING MAGE -Mahou no Mori no Nemurihime- Gekidoku Shoujo Publication Number VII (Touhou Project)",
-    //   url: "https://nhentai.net/g/349629/",
-    // },
-  ],
+  doujinsUrlData: [],
   searchTagsInclude: ["mokou", "ke-ta", "japanese"],
   searchTagsExclude: [],
+  downloadSuccess: false,
 };
 
 export const thunkDoujinsUrlData = createAsyncThunk(
@@ -107,6 +85,9 @@ const doujinsSlice = createSlice({
         (tag) => tag !== action.payload
       );
     },
+    setDownloadSuccess(state, action: PayloadAction<boolean>) {
+      state.downloadSuccess = action.payload;
+    },
   },
   extraReducers: {
     [thunkDoujinsUrlData.fulfilled.toString()]: (
@@ -114,6 +95,9 @@ const doujinsSlice = createSlice({
       action: PayloadAction<DoujinUrlData[]>
     ) => {
       state.doujinsUrlData = action.payload;
+    },
+    [thunkDoujins.fulfilled.toString()]: (state) => {
+      state.downloadSuccess = true;
     },
   },
 });
@@ -134,6 +118,15 @@ export const selectDoujinFocused = (state: RootState) => {
   return state.doujins.doujinFocused;
 };
 
-export const { setDoujins, setDoujinFocused, addTagInclude, deleteTagInclude } =
-  doujinsSlice.actions;
+export const selectDownloadSuccess = (state: RootState) => {
+  return state.doujins.downloadSuccess;
+};
+
+export const {
+  setDoujins,
+  setDoujinFocused,
+  addTagInclude,
+  deleteTagInclude,
+  setDownloadSuccess,
+} = doujinsSlice.actions;
 export const doujinsReducer = doujinsSlice.reducer;

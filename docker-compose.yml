@@ -15,14 +15,14 @@ services:
     depends_on:
       - mongo
 
-  # frontend:
-  #   build: ./frontend/
-  #   volumes:
-  #     - ./frontend:/app
-  #   environment:
-  #     - PORT=3000
-  #   depends_on:
-  #     - doujins
+  frontend:
+    build: ./frontend/
+    volumes:
+      - ./frontend:/app
+    environment:
+      - PORT=3000
+    depends_on:
+      - doujins
 
   nginx:
     image: nginx:latest

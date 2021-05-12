@@ -1,4 +1,4 @@
-# DOUJIN DL
+# DOUJIN_DL
 
 ## To Run
 
@@ -13,13 +13,25 @@ docker composse up
 
 ## Tech Stack
 
-- Nginx
-  - Reverse Proxy
 - Frontend
+  - Material-UI
+    - CSS Framework
   - Next.js
+    - React + Static Site Gen
   - Redux
+    - State management
   - React Final Form
+    - Form validation and quality of life
 - Backend
   - express
+    - http webserver
   - node-fetch
+    - making http requests
   - cheerio
+    - parsing dom returned from http requests
+- Nginx
+  - Reverse Proxy
+- Docker
+  - Devops
+- Typescript
+  - Amazing.

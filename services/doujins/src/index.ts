@@ -1,14 +1,12 @@
 import express from "express";
-import { doujinRouter } from "./routes/doujinRouter";
+import { doujinRouter } from "./doujin.controller";
+import bodyParser from "body-parser";
 
 const app = express();
+app.use(bodyParser.json());
 
-app.use("/doujin", doujinRouter);
-
-app.get("/", (req, res) => {
-  res.send("Doujin Service Online");
-});
+app.use("", doujinRouter);
 
 app.listen(3000, () => {
-  console.log("App Running on 3000");
+  console.log("[Doujins Service] Running on Port 3000");
 });

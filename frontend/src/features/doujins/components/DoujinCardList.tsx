@@ -22,7 +22,7 @@ export const DoujinCardList: React.FunctionComponent = () => {
   const classes = useStyles();
 
   return (
-    <Grid className={classes.root} container spacing={3}>
+    <Grid container spacing={3}>
       {doujinsRender}
     </Grid>
   );

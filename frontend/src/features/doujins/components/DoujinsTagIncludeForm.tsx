@@ -31,8 +31,8 @@ export const DoujinsTagIncludeForm: React.FunctionComponent = () => {
               <TextField
                 {...input}
                 variant="standard"
-                label="Tag Include"
-                placeholder="Tag Include"
+                label="Add a Tag to Include"
+                placeholder="kemonomimi"
                 error={meta.touched && meta.error}
                 helperText={
                   meta.touched && meta.error

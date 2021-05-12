@@ -10,10 +10,7 @@ import {
 import { GetStaticProps } from "next";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DoujinsSearchForm } from "../features/doujins/components/DoujinsSearchForm";
-import { DoujinsTagIncludeForm } from "../features/doujins/components/DoujinsTagIncludeForm";
 import { DoujinUrlDisplay } from "../features/doujins/components/DoujinUrlDisplay";
-import { IncludeTag } from "../features/doujins/components/tags/IncludeTag";
 import {
   Doujin,
   selectDoujinsUrlData,
@@ -26,6 +23,7 @@ import fs from "fs";
 import path from "path";
 import { DoujinCardList } from "../features/doujins/components/DoujinCardList";
 import { DoujinReaderModal } from "../features/doujins/components/DoujinReaderModal";
+import { DoujinsTagForm } from "../features/doujins/components/DoujinsTagForm";
 interface Props {
   doujins: Doujin[];
 }
@@ -39,17 +37,12 @@ const Home: React.FunctionComponent<Props> = ({ doujins }) => {
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-      cont: {
-        padding: theme.spacing(2),
+      paper: {
+        padding: theme.spacing(3),
       },
     })
   );
   const classes = useStyles();
-
-  const searchTagsInclude = useSelector(selectSearchTagsInclude);
-  const searchTagsIncludeRender = searchTagsInclude.map((tag, index) => (
-    <IncludeTag key={index} tag={tag}></IncludeTag>
-  ));
 
   const doujinsUrlData = useSelector(selectDoujinsUrlData);
   const doujinsUrlDataRender = doujinsUrlData.map((doujinUrlData) => (
@@ -62,45 +55,18 @@ const Home: React.FunctionComponent<Props> = ({ doujins }) => {
     </React.Fragment>
   ));
 
-  const handleClick1: React.MouseEventHandler = (e) => {
-    dispatch(thunkDoujinsUrlData(searchTagsInclude));
-  };
-
-  const handleClick2: React.MouseEventHandler = (e) => {};
-
   return (
     <div>
-      <Grid container justify="center">
+      <Grid container spacing={3} justify="center">
+        {/* Search / Download Form */}
         <Grid item xs={10}>
-          <Typography variant="h3">Testing</Typography>
-        </Grid>
-        <Grid item xs={10}>
-          <Paper>
-            <div className={classes.cont}>
-              <Typography variant="caption">Tags Included: </Typography>
-              {searchTagsIncludeRender}
-              <br></br>
-              {doujinsUrlDataRender}
-              <DoujinsTagIncludeForm></DoujinsTagIncludeForm>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleClick1}
-              >
-                Get Doujin Data
-              </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleClick2}
-              >
-                Download Doujins
-              </Button>
-            </div>
+          <Paper className={classes.paper}>
+            <DoujinsTagForm></DoujinsTagForm>
           </Paper>
         </Grid>
+        {/* Doujin Viewer */}
         <Grid item xs={10}>
-          <Paper>
+          <Paper className={classes.paper}>
             {/* <Typography variant="h2">ke-ta</Typography> */}
             <DoujinCardList></DoujinCardList>
           </Paper>

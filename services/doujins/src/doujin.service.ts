@@ -188,7 +188,7 @@ export const downloadDoujin = async (doujinMetadata: DoujinMetadata) => {
   const destination = path.join(
     __dirname,
     "..",
-    "doujins",
+    "images",
     doujinMetadata.title.replace("/", "_")
   );
 

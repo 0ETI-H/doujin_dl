@@ -6,7 +6,7 @@ const app = express();
 app.use("/doujin", doujinRouter);
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("Doujin Service Online");
 });
 
 app.listen(3000, () => {

@@ -6,6 +6,7 @@ import {
   downloadDoujin,
   getDoujinMetadata,
   getDoujinData,
+  downloadDoujinBatch,
 } from "./doujin.service";
 
 export const doujinRouter = express.Router();
@@ -39,12 +40,26 @@ interface DownloadReqBody {
 doujinRouter.post("/download", async (req, res) => {
   const { doujinUrlData }: DownloadReqBody = req.body;
 
-  const doujinMetadata = await getDoujinMetadata(
-    doujinUrlData.url,
-    doujinUrlData.title
-  );
+  const doujinMetadata = await getDoujinMetadata(doujinUrlData);
 
   downloadDoujin(doujinMetadata);
 
   return res.json({});
+});
+
+interface DownloadBatchReqBody {
+  doujinsUrlData: {
+    title: string;
+    url: string;
+  }[];
+}
+
+doujinRouter.post("/download-batch", async (req, res) => {
+  const { doujinsUrlData }: DownloadBatchReqBody = req.body;
+  // console.log(doujinsUrlData);
+
+  // Don't want to await. Just let it run in the background.
+  downloadDoujinBatch(doujinsUrlData);
+
+  return res.json({ pending: "IN PROGRESS" });
 });

@@ -52,7 +52,7 @@ const initialState: DoujinsState = {
     //   url: "https://nhentai.net/g/349629/",
     // },
   ],
-  searchTagsInclude: ["marisa", "ke-ta", "japanese"],
+  searchTagsInclude: ["mokou", "ke-ta", "japanese"],
   searchTagsExclude: [],
 };
 
@@ -75,7 +75,12 @@ export const thunkDoujinsUrlData = createAsyncThunk(
 export const thunkDoujins = createAsyncThunk(
   "doujins/fetchDoujins",
   async (doujinsUrlData: DoujinUrlData[]) => {
-    fetch("http://localhost/doujins/download");
+    console.log("SANITY CHECK");
+    fetch("http://localhost/doujins/download-batch", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ doujinsUrlData }),
+    });
   }
 );
 

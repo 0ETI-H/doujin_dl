@@ -14,6 +14,11 @@ interface DoujinMetadata {
   pages: number;
 }
 
+interface UrlData {
+  url: string;
+  title: string;
+}
+
 export const getTagQuotes = (tags: string[]) => tags.map((tag) => `"${tag}"`);
 
 export const getSearchUrl = (tags: string[]) => {
@@ -71,10 +76,10 @@ export const getDoujinData = async (tags: string[]) => {
   return doujinData;
 };
 
-export const getDoujinMetadata = async (
-  url: string,
-  title: string
-): Promise<DoujinMetadata> => {
+export const getDoujinMetadata = async ({
+  url,
+  title,
+}: UrlData): Promise<DoujinMetadata> => {
   const dom = await (await fetch(url)).text();
   const $ = cheerio.load(dom);
 
@@ -199,5 +204,14 @@ export const downloadDoujin = async (doujinMetadata: DoujinMetadata) => {
       const pageUrl = `https://nhentai.net/g/${doujinMetadata.digits}/${counter}/`;
       await downloadImageFromPage(pageUrl, destination);
     }
+  } else {
+    console.log(`[SKIPPING] RECORD OF ${destination} FOUND`);
+  }
+};
+
+export const downloadDoujinBatch = async (urlData: UrlData[]) => {
+  for (var counter = 0; counter < urlData.length; counter += 1) {
+    const metadata = await getDoujinMetadata(urlData[counter]);
+    await downloadDoujin(metadata);
   }
 };

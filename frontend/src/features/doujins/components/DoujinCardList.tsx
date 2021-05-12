@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const DoujinCardList: React.FunctionComponent = () => {
   const doujins = useSelector(selectDoujins);
-  const doujinsRender = doujins.map((doujin) => (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
+  const doujinsRender = doujins.map((doujin, index) => (
+    <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
       <DoujinCard doujin={doujin}></DoujinCard>
     </Grid>
   ));

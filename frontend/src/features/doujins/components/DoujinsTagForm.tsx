@@ -2,7 +2,12 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../app/store";
-import { selectSearchTagsInclude, thunkDoujinsUrlData } from "../doujins.slice";
+import {
+  selectDoujinsUrlData,
+  selectSearchTagsInclude,
+  thunkDoujins,
+  thunkDoujinsUrlData,
+} from "../doujins.slice";
 import DataTable from "../Test";
 import { DoujinsTagIncludeForm } from "./DoujinsTagIncludeForm";
 import { DoujinUrlDataTable } from "./DoujinUrlDataTable";
@@ -20,7 +25,11 @@ export const DoujinsTagForm: React.FunctionComponent = () => {
     dispatch(thunkDoujinsUrlData(searchTagsInclude));
   };
 
-  const downloadDoujins: React.MouseEventHandler = () => {};
+  const doujinsUrlData = useSelector(selectDoujinsUrlData);
+
+  const downloadDoujins: React.MouseEventHandler = () => {
+    dispatch(thunkDoujins(doujinsUrlData));
+  };
 
   return (
     <Grid container item spacing={3}>
@@ -43,7 +52,9 @@ export const DoujinsTagForm: React.FunctionComponent = () => {
         <Button variant="contained" onClick={findDoujins}>
           Find Doujins
         </Button>
-        <Button variant="outlined">Download Doujins</Button>
+        <Button variant="outlined" onClick={downloadDoujins}>
+          Download Doujins
+        </Button>
       </Grid>
 
       {/* TABLE OF DOUJIN URL INFO */}

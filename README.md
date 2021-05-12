@@ -35,3 +35,9 @@ docker composse up
   - Devops
 - Typescript
   - Amazing.
+
+## General Info
+
+- Some doujins included for demonstration purposes
+- Can manually put doujin folders in ./services/doujins/images
+- Docker volumes passes that info on to the frontend public/images folder

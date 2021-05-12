@@ -3,9 +3,9 @@ import { AppDispatch, RootState } from "../app/store";
 
 export interface Doujin {
   title: string;
-  author: string;
+  author?: string;
   pageUrls: string[];
-  tags: string[];
+  tags?: string[];
 }
 
 export interface DoujinUrlData {
@@ -15,13 +15,17 @@ export interface DoujinUrlData {
 
 interface DoujinsState {
   doujins: Doujin[];
+  doujinFocused: Doujin;
+
   doujinsUrlData: DoujinUrlData[];
+
   searchTagsInclude: string[];
   searchTagsExclude: string[];
 }
 
 const initialState: DoujinsState = {
   doujins: [],
+  doujinFocused: { title: "", pageUrls: [] },
   doujinsUrlData: [
     // {
     //   title:
@@ -79,6 +83,12 @@ const doujinsSlice = createSlice({
   name: "doujins",
   initialState: initialState,
   reducers: {
+    setDoujins(state, action: PayloadAction<Doujin[]>) {
+      state.doujins = action.payload;
+    },
+    setDoujinFocused(state, action: PayloadAction<Doujin>) {
+      state.doujinFocused = action.payload;
+    },
     addTagInclude(state, action: PayloadAction<string>) {
       if (
         state.searchTagsInclude.find((tag) => tag === action.payload) ===
@@ -111,5 +121,14 @@ export const selectDoujinsUrlData = (state: RootState) => {
   return state.doujins.doujinsUrlData;
 };
 
-export const { addTagInclude, deleteTagInclude } = doujinsSlice.actions;
+export const selectDoujins = (state: RootState) => {
+  return state.doujins.doujins;
+};
+
+export const selectDoujinFocused = (state: RootState) => {
+  return state.doujins.doujinFocused;
+};
+
+export const { setDoujins, setDoujinFocused, addTagInclude, deleteTagInclude } =
+  doujinsSlice.actions;
 export const doujinsReducer = doujinsSlice.reducer;

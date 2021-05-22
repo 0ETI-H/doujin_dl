@@ -8,7 +8,7 @@ docker compose up
 ```
 
 ![demo_image_1](./demo_image_1.png)
-![demo_image_2](./demo_image_2.png)
+<!-- ![demo_image_2](./demo_image_2.png) -->
 ![demo_image_3](./demo_image_3.png)
 
 ## Tech Stack

@@ -2,9 +2,9 @@
 
 ## To Run
 
-```bash
+```shell
 # go to http://localhost
-docker composse up
+docker compose up
 ```
 
 ![demo_image_1](./demo_image_1.png)
